@@ -57,3 +57,28 @@ def index(request):
         serialized_students= StudentSerializer(students, many=True)
 
         return Response({'students':serialized_students.data})
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def student_resource(request, id):
+    student = Student.get_sepecific_students(id)
+    if student and request.method == 'PUT':
+        serialized_student = StudentSerializer(data=request.data, instance=student)
+        if serialized_student.is_valid():
+            serialized_student.save()
+            return Response({'student': serialized_student.data}, status=200)
+        return Response({'errors': serialized_student.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    elif student and request.method == 'DELETE':
+        student.delete()
+        return Response({"message": "Deleted Successfully! "},
+                        status=status.HTTP_204_NO_CONTENT)
+
+    elif student and request.method == 'GET':
+        serialized_student = StudentSerializer(student)
+        return Response({'data': serialized_student.data}, status=status.HTTP_200_OK)
+
+    else:
+        return  Response({"message":"object not found , please reload the page"},
+                         status=status.HTTP_205_RESET_CONTENT)
+

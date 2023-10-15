@@ -17,3 +17,7 @@ class Student(models.Model):
     @classmethod
     def get_all_students(cls):
         return cls.objects.all()
+
+    @classmethod
+    def get_sepecific_students(cls, id):
+        return cls.objects.filter(id=id).first()

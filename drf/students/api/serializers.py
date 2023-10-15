@@ -20,3 +20,11 @@ class StudentSerializer(serializers.Serializer):
         return  Student.objects.create(**validated_data)
 
 
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data['name']
+        instance.email = validated_data['email']
+        instance.grade = validated_data['grade']
+        instance.image = validated_data['image']
+        instance.save()
+        return  instance
