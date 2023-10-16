@@ -37,3 +37,6 @@ class StudentSerializer(serializers.Serializer):
         instance.image = validated_data['image']
         instance.save()
         return  instance
+
+
+

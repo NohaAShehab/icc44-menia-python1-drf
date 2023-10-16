@@ -23,3 +23,11 @@ class TrackSerializer(serializers.Serializer):
         instance.logo = validated_data['logo']
         instance.save()
         return  instance
+
+
+
+class TrackModelSerializer(serializers.ModelSerializer):
+    students = serializers.StringRelatedField(many=True, read_only=True)
+    class Meta:
+        model = Track
+        fields = '__all__'
