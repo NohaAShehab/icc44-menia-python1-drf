@@ -11,7 +11,7 @@ class StudentSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
     email = serializers.EmailField(validators=[validators.UniqueValidator(queryset=Student.get_all_students())])
     grade = serializers.IntegerField(default=0)
-    image= serializers.ImageField()
+    image= serializers.ImageField(allow_empty_file=True, allow_null=True, required=False)
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
 
