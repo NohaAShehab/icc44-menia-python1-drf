@@ -8,6 +8,8 @@ class TrackSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100,validators=[UniqueValidator(queryset=Track.get_all_objects())])
     description = serializers.CharField(max_length=200)
     logo = serializers.ImageField(required=False)
+    students=  serializers.StringRelatedField(many=True, read_only=True)
+
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
 

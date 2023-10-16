@@ -15,9 +15,15 @@ class StudentSerializer(serializers.Serializer):
     image= serializers.ImageField(allow_empty_file=True, allow_null=True, required=False)
     track = TrackSerializer(read_only=True)
     track_id = serializers.IntegerField(write_only=True)
+    track_name = serializers.StringRelatedField(read_only=True)
+    # track_name= serializers.StringRelatedField(read_only=True, source=track)
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
 
+    def get_track_name(self, obj):
+        if obj:
+            return  obj.track.name
+        return  None
 
     def create(self, validated_data):
         return  Student.objects.create(**validated_data)
