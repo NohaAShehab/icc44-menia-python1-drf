@@ -1,5 +1,6 @@
 from django.db import models
 
+from tracks.models import  Track
 # Create your models here.
 
 
@@ -8,6 +9,8 @@ class Student(models.Model):
     email= models.EmailField(unique=True, null=True, blank=True)
     grade = models.IntegerField(default=0)
     image = models.ImageField(upload_to='students/images/', null=True, blank=True)
+    track = models.ForeignKey(Track, on_delete=models.CASCADE,
+                              related_name='students',null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 

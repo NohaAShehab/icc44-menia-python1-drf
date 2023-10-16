@@ -4,7 +4,8 @@
 from rest_framework import serializers
 from students.models import Student
 from rest_framework import validators
-
+from tracks.models import Track
+from tracks.api.serializers import  TrackSerializer
 
 class StudentSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -12,6 +13,8 @@ class StudentSerializer(serializers.Serializer):
     email = serializers.EmailField(validators=[validators.UniqueValidator(queryset=Student.get_all_students())])
     grade = serializers.IntegerField(default=0)
     image= serializers.ImageField(allow_empty_file=True, allow_null=True, required=False)
+    track = TrackSerializer(read_only=True)
+    track_id = serializers.IntegerField(write_only=True)
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
 
